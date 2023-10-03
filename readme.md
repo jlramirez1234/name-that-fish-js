@@ -23,27 +23,27 @@ To get this project setup, you should:
 
 ### Standard Requirements
 
-- [ ] Setup eslint
-- [ ] Pass all linting checks
+- [x] Setup eslint
+- [x] Pass all linting checks
 
 - To check if linting passes, run `npm run lint`
 
-- [ ] Format code with prettier
-- [ ] State should not be duplicated
-- [ ] Variables should be named logicially
-- [ ] No unneccessary console logs
-- [ ] No commented out blocks of code (Code comments are fine)
-- [ ] Setup a github repository with your submission as the `main` branch, you will submit a link to this for grading (NOT A ZIP FILE)
+- [x] Format code with prettier
+- [x] State should not be duplicated
+- [x] Variables should be named logicially
+- [x] No unneccessary console logs
+- [x] No commented out blocks of code (Code comments are fine)
+- [x] Setup a github repository with your submission as the `main` branch, you will submit a link to this for grading (NOT A ZIP FILE)
 
 ### Assignment Specific Requirements
 
-- [ ] Get your code to function EXACTLY like [This Site](https://name-that-fish-deployed.vercel.app/)
-- [ ] Keep state as CLEAN AS POSSIBLE
-- [ ] Place `initialFishes` in the correct component
-- [ ] Derive all pieces of state that can be derived
-- [ ] Don't mutate state directly, only use a state setter
+- [x] Get your code to function EXACTLY like [This Site](https://name-that-fish-deployed.vercel.app/)
+- [x] Keep state as CLEAN AS POSSIBLE
+- [x] Place `initialFishes` in the correct component
+- [x] Derive all pieces of state that can be derived
+- [x] Don't mutate state directly, only use a state setter
   - example: don't use .splice on an array that you are rendering
-- [ ] Keep all constants (variables that do not change over time) outside of components
-- [ ] Form must reset after submitting
-- [ ] Page must NOT reload after submitting
-- [ ] ClassApp Code and FunctionalApp Code should be treated as seperate apps as far as state goes
+- [x] Keep all constants (variables that do not change over time) outside of components
+- [x] Form must reset after submitting
+- [x] Page must NOT reload after submitting
+- [x] ClassApp Code and FunctionalApp Code should be treated as seperate apps as far as state goes
