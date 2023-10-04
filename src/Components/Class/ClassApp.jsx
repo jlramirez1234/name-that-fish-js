@@ -2,20 +2,42 @@ import { Component } from "react";
 import { ClassScoreBoard } from "./ClassScoreBoard";
 import { ClassGameBoard } from "./ClassGameBoard";
 import { ClassFinalScore } from "./ClassFinalScore";
+import { Images } from "../../assets/Images";
+
+const initialFishes = [
+  {
+    name: "trout",
+    url: Images.trout,
+  },
+  {
+    name: "salmon",
+    url: Images.salmon,
+  },
+  {
+    name: "tuna",
+    url: Images.tuna,
+  },
+  {
+    name: "shark",
+    url: Images.shark,
+  },
+];
 
 export class ClassApp extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      incorrectCount: 0,
       correctCount: 0,
-      gameOver: false,
+      incorrectCount: 0,
+      answersLeft: initialFishes.map((fish) => fish.name),
+      fishIndex: 0,
     };
   }
 
-  handleGuessResult = (isCorrectGuess) => {
-    if (isCorrectGuess) {
+  handleGuessResult = (guess) => {
+    const { fishIndex } = this.state;
+    if (initialFishes[fishIndex].name === guess) {
       this.setState((prevState) => ({
         correctCount: prevState.correctCount + 1,
       }));
@@ -25,30 +47,37 @@ export class ClassApp extends Component {
       }));
     }
 
-    const totalGuesses =
-      this.state.correctCount + this.state.incorrectCount + 1;
-    if (totalGuesses >= 4) {
-      this.setState({
-        gameOver: true,
-      });
-    }
+    const updatedAnswersLeft = this.state.answersLeft.filter(
+      (answer) => answer !== guess
+    );
+
+    this.setState({
+      answersLeft: updatedAnswersLeft,
+      fishIndex: fishIndex + 1,
+    });
   };
 
   render() {
+    const { correctCount, incorrectCount, answersLeft, fishIndex } = this.state;
+    const isGameOver = fishIndex === initialFishes.length;
+
     return (
       <>
-        {this.state.gameOver ? (
-          <ClassFinalScore
-            correctCount={this.state.correctCount}
-            totalCount={this.state.correctCount + this.state.incorrectCount}
-          />
+        {isGameOver ? (
+          <>
+            <ClassFinalScore correctCount={correctCount} totalCount={fishIndex} />
+          </>
         ) : (
           <>
             <ClassScoreBoard
-              correctCount={this.state.correctCount}
-              incorrectCount={this.state.incorrectCount}
+              correctCount={correctCount}
+              incorrectCount={incorrectCount}
+              answersLeft={answersLeft}
             />
-            <ClassGameBoard setFirstFish={this.handleGuessResult} />
+            <ClassGameBoard
+              handleGuessResult={this.handleGuessResult}
+              fishData={initialFishes[fishIndex]}
+            />
           </>
         )}
       </>

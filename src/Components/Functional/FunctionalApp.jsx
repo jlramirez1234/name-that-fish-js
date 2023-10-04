@@ -1,34 +1,55 @@
 import { FunctionalGameBoard } from "./FunctionalGameBoard";
 import { FunctionalScoreBoard } from "./FunctionalScoreBoard";
 import { FunctionalFinalScore } from "./FunctionalFinalScore";
+import { Images } from "../../assets/Images";
 import { useState } from "react";
+
+const initialFishes = [
+  {
+    name: "trout",
+    url: Images.trout,
+  },
+  {
+    name: "salmon",
+    url: Images.salmon,
+  },
+  {
+    name: "tuna",
+    url: Images.tuna,
+  },
+  {
+    name: "shark",
+    url: Images.shark,
+  },
+];
 
 export function FunctionalApp() {
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
-  const [gameOver, setGameOver] = useState(false);
+  const [answersLeft, setAnswersLeft] = useState(initialFishes.map((fish) => fish.name));
 
-  const handleGuessResult = (isCorrectGuess) => {
-    if (isCorrectGuess) {
+  const fishIndex = correctCount + incorrectCount;
+  const isGameOver = fishIndex === initialFishes.length;
+  
+
+  const handleGuessResult = (guess) => {
+    if (initialFishes[fishIndex].name === guess) {
       setCorrectCount(correctCount + 1);
     } else {
       setIncorrectCount(incorrectCount + 1);
     }
 
-    
-    const totalGuesses = correctCount + incorrectCount + 1;
-    if (totalGuesses >= 4) {
-      setGameOver(true);
-    }
+    const updatedAnswersLeft = answersLeft.filter((answer) => answer !== guess);
+    setAnswersLeft(updatedAnswersLeft);
   };
 
   return (
     <>
-      {gameOver ? (
+      {isGameOver ? (
         <>
           <FunctionalFinalScore
             correctCount={correctCount}
-            totalCount={correctCount + incorrectCount}
+            totalCount={fishIndex}
           />
         </>
       ) : (
@@ -36,8 +57,12 @@ export function FunctionalApp() {
           <FunctionalScoreBoard
             correctCount={correctCount}
             incorrectCount={incorrectCount}
+            answersLeft={answersLeft}
           />
-          <FunctionalGameBoard setFirstFish={handleGuessResult} />
+          <FunctionalGameBoard
+            handleGuessResult={handleGuessResult}
+            fishData={initialFishes[fishIndex]}
+          />
         </>
       )}
     </>
