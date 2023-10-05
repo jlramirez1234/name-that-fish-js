@@ -1,9 +1,7 @@
 import "./styles/score-board.css";
 
-
 export function FunctionalScoreBoard(props) {
   const { correctCount, incorrectCount, answersLeft } = props;
-
 
   return (
     <div id="score-board">

@@ -1,13 +1,12 @@
 import { Component } from "react";
 import "./styles/game-board.css";
 
-
 export class ClassGameBoard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      guess: '',
+      guess: "",
     };
   }
 
@@ -15,7 +14,7 @@ export class ClassGameBoard extends Component {
     e.preventDefault();
     const { guess } = this.state;
     this.props.handleGuessResult(guess);
-    this.setState({ guess: '' });
+    this.setState({ guess: "" });
   };
 
   handleInputChange = (e) => {

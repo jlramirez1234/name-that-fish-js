@@ -30,14 +30,14 @@ export class ClassApp extends Component {
     this.state = {
       correctCount: 0,
       incorrectCount: 0,
-      answersLeft: initialFishes.map((fish) => fish.name),
-      fishIndex: 0,
     };
   }
 
   handleGuessResult = (guess) => {
-    const { fishIndex } = this.state;
-    if (initialFishes[fishIndex].name === guess) {
+    if (
+      initialFishes[this.state.correctCount + this.state.incorrectCount]
+        .name === guess
+    ) {
       this.setState((prevState) => ({
         correctCount: prevState.correctCount + 1,
       }));
@@ -46,26 +46,22 @@ export class ClassApp extends Component {
         incorrectCount: prevState.incorrectCount + 1,
       }));
     }
-
-    const updatedAnswersLeft = this.state.answersLeft.filter(
-      (answer) => answer !== guess
-    );
-
-    this.setState({
-      answersLeft: updatedAnswersLeft,
-      fishIndex: fishIndex + 1,
-    });
   };
 
   render() {
-    const { correctCount, incorrectCount, answersLeft, fishIndex } = this.state;
+    const { correctCount, incorrectCount } = this.state;
+    const fishIndex = correctCount + incorrectCount;
     const isGameOver = fishIndex === initialFishes.length;
+    const answersLeft = initialFishes.map((fish) => fish.name).slice(fishIndex);
 
     return (
       <>
         {isGameOver ? (
           <>
-            <ClassFinalScore correctCount={correctCount} totalCount={fishIndex} />
+            <ClassFinalScore
+              correctCount={correctCount}
+              totalCount={initialFishes.length}
+            />
           </>
         ) : (
           <>

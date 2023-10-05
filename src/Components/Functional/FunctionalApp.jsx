@@ -26,11 +26,10 @@ const initialFishes = [
 export function FunctionalApp() {
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
-  const [answersLeft, setAnswersLeft] = useState(initialFishes.map((fish) => fish.name));
 
   const fishIndex = correctCount + incorrectCount;
   const isGameOver = fishIndex === initialFishes.length;
-  
+  const answersLeft = initialFishes.map((fish) => fish.name).slice(fishIndex);
 
   const handleGuessResult = (guess) => {
     if (initialFishes[fishIndex].name === guess) {
@@ -38,9 +37,6 @@ export function FunctionalApp() {
     } else {
       setIncorrectCount(incorrectCount + 1);
     }
-
-    const updatedAnswersLeft = answersLeft.filter((answer) => answer !== guess);
-    setAnswersLeft(updatedAnswersLeft);
   };
 
   return (
@@ -49,7 +45,7 @@ export function FunctionalApp() {
         <>
           <FunctionalFinalScore
             correctCount={correctCount}
-            totalCount={fishIndex}
+            totalCount={initialFishes.length}
           />
         </>
       ) : (

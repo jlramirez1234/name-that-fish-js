@@ -1,8 +1,6 @@
 import "./styles/final-score.css";
 
-
 export const FunctionalFinalScore = (props) => (
-  
   <div id="final-score">
     <h1>Your Final Score Was</h1>
     <div id="score">
@@ -11,5 +9,4 @@ export const FunctionalFinalScore = (props) => (
       <p>{props.totalCount}</p>
     </div>
   </div>
-  
 );
